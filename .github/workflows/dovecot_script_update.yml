@@ -28,6 +28,5 @@ jobs:
       
       - name: Upload file to Google Cloud Storage
         run: |
-          gsutil cp scripts/dovecot.sh gs://mail-barisano-dev/dovecot.sh
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+          gcloud auth activate-service-account --key-file="${{ github.workspace }}/gcp-key.json"
+          gcloud storage cp scripts/dovecot.sh gs://mail-barisano-dev/dovecot.sh
