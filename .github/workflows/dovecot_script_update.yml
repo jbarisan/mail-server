@@ -1,0 +1,33 @@
+name: Push dovecot.sh to GCP on Update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/dovecot.sh'
+
+jobs:
+  upload-to-gcs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: 'latest'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Authenticate with Google Cloud
+        run: echo "${{ secrets.GCP_CREDENTIALS_JSON }}" > "${{ github.workspace }}/gcp-key.json"
+        env:
+          GCP_CREDENTIALS_JSON: ${{ secrets.GCP_CREDENTIALS_JSON }}
+      
+      - name: Upload file to Google Cloud Storage
+        run: |
+          gsutil cp scripts/dovecot.sh gs://mail-barisano-dev/dovecot.sh
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
