@@ -22,11 +22,10 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Authenticate with Google Cloud
-        run: echo "${{ secrets.GCP_CREDENTIALS_JSON }}" > "${{ github.workspace }}/gcp-key.json"
-        env:
-          GCP_CREDENTIALS_JSON: ${{ secrets.GCP_CREDENTIALS_JSON }}
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS_JSON }}
       
       - name: Upload file to Google Cloud Storage
         run: |
-          gcloud auth activate-service-account --key-file="${{ github.workspace }}/gcp-key.json"
           gcloud storage cp scripts/dovecot.sh gs://mail-barisano-dev/dovecot.sh
