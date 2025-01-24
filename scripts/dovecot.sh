@@ -20,5 +20,4 @@ sed -i '107,/#}/s/#}/}/' /etc/dovecot/conf.d/10-master.conf
 sed -i '108a\\    group = postfix' /etc/dovecot/conf.d/10-master.conf
 sed -i '108a\\    user = postfix' /etc/dovecot/conf.d/10-master.conf
 
-
 dovecot reload
