@@ -29,8 +29,8 @@ jobs:
       - name: Authenticate with Google Cloud
         uses: 'google-github-actions/auth@v2'
         with:
-          project_id: 'sigma-smile-251818'
-          workload_identity_provider: 'projects/457022640197/locations/global/workloadIdentityPools/github/providers/mail-server-repo'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ secrets.GCP_Workload_Identity_Provider_For_Github }}
       
       - name: Upload file to Google Cloud Storage
         run: |
