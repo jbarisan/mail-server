@@ -13,7 +13,7 @@ jobs:
     
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
@@ -22,9 +22,10 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Authenticate with Google Cloud
-        uses: 'google-github-actions/auth@v1'
+        uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS_JSON }}
+          project_id: 'sigma-smile-251818'
+          workload_identity_provider: 'projects/457022640197/locations/global/workloadIdentityPools/github/providers/mail-server-repo'
       
       - name: Upload file to Google Cloud Storage
         run: |
