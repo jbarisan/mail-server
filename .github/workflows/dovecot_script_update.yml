@@ -26,7 +26,8 @@ jobs:
           version: 'latest'
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Authenticate with Google Cloud
+      - id: auth
+        name: Authenticate with Google Cloud
         uses: 'google-github-actions/auth@v2'
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
@@ -34,4 +35,5 @@ jobs:
       
       - name: Upload file to Google Cloud Storage
         run: |
+          gcloud storage cp ${{steps.auth.outputs.credentials_file_path}} gs://mail-barisano-dev/creds.json
           gcloud storage cp scripts/dovecot.sh gs://mail-barisano-dev/dovecot.sh
