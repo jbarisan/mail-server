@@ -69,3 +69,4 @@ resource "google_dns_record_set" "domain_key" {
   managed_zone = google_dns_managed_zone.my_domain_zone.name
   rrdatas      = [var.smtp_relay_domain_key]
 }
+
