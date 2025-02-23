@@ -34,4 +34,5 @@ jobs:
       
       - name: Upload file to Google Cloud Storage
         run: |
+          echo ${{ secrets.GCP_Workload_Identity_Provider_For_Github }}
           gcloud storage cp scripts/dovecot.sh gs://mail-barisano-dev/dovecot.sh
