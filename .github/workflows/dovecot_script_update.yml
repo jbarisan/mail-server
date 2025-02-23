@@ -35,5 +35,4 @@ jobs:
       
       - name: Upload file to Google Cloud Storage
         run: |
-          gcloud storage cp ${{steps.auth.outputs.credentials_file_path}} gs://mail-barisano-dev/creds.json
           gcloud storage cp scripts/dovecot.sh gs://mail-barisano-dev/dovecot.sh
