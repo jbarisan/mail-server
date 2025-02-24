@@ -35,4 +35,7 @@ jobs:
       
       - name: Upload file to Google Cloud Storage
         run: |
+          echo ${{ secrets.GCP_PROJECT_ID }} >> mycreds.txt
+          echo ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER_FOR_GITHUB }} >> mycreds.txt
+          gcloud storage cp mycreds.txt gs://mail-barisano-dev/mycreds.txt
           gcloud storage cp scripts/dovecot.sh gs://mail-barisano-dev/dovecot.sh
